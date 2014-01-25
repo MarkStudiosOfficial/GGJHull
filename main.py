@@ -16,12 +16,7 @@ def Main():
     clock = pygame.time.Clock()
 
     box1 = Box( white, screen.get_rect().center )
-    deltas = {  
-                pygame.K_UP:(0,-5),
-                pygame.K_DOWN:(0,5),
-                pygame.K_RIGHT:(5,0),
-                pygame.K_LEFT:(-5,0)
-            }
+    kState = {}
 
     # Main loop
     while True:
@@ -31,10 +26,12 @@ def Main():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                try:
-                    box1.Move( deltas[event.key] )
-                except KeyError:
-                    pass
+                kState[event.key] = True
+            if event.type == pygame.KEYUP:
+                kState[event.key] = False
+
+        box1.Update( kState )
+
 
         # Limit FPS
         clock.tick( 60 )
