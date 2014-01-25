@@ -62,7 +62,7 @@ class Box( pygame.sprite.Sprite ):
         self.xVel = self.xVel-fric if self.xVel > 0 else self.xVel+fric
         self.Move( (self.xVel,0) )
 
-        grav = self.grav
+        grav = self.grav if lvl.rect.x > -(lvl.rect.w-400) else -self.grav
         self.yVel += grav
         self.Move( (0,self.yVel) )
 
@@ -78,5 +78,8 @@ class Box( pygame.sprite.Sprite ):
                 self.Move( (0,rect.y-32) )
                 self.canJump = True
         if self.rect.y > 480:
+            pygame.quit()
+            sys.exit()
+        if self.rect.y < -128:
             pygame.quit()
             sys.exit()
