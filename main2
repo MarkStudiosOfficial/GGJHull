@@ -14,9 +14,8 @@ class App():
         # Create window
         self.size = width, height = 640, 480
         self.screen = pygame.display.set_mode( self.size )
-        pygame.display.set_caption("Blue isn't | GGJ 2014 | The Stuck Pixels")
 
-        self.lives = 4
+        self.lives = 3
 
         #Death
         self.death = pygame.mixer.Sound("sound/Death.wav")
@@ -30,7 +29,7 @@ class App():
 
     def Game( self, levelFile ):
         self.box1 = Box( blue, self.screen.get_rect().center )
-        self.lvl = Level( "lvl/%s" % (levelFile) )
+        self.lvl = Level( "lvl 1-50" % (levelFile) )
 
         # Main loop
         while True:
