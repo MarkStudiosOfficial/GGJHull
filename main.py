@@ -31,17 +31,21 @@ def Main():
                     sys.exit()
                 if event.key == pygame.K_b:
                     box1.Move( 10, 0 )
+                if event.key == pygame.K_f:
+                    frame += 1
+                    if frame == 4:
+                        frame = 0
 
         clock.tick( 60 )
         screen.fill( orange )
         screen.blit( box1.image, box1.rect )
         screen.blit( img1.image, img1.rect )
-        screen.blit( she1.Image(frame), (400,400) )
+        screen.blit( she1.Image(frame), (100,400) )
+        screen.blit( she1.Image(1), (100,200) )
+        screen.blit( she1.Image(2), (100,242) )
+        screen.blit( she1.Image(3), (100,274) )
+        screen.blit( she1.Image(4), (100,316) )
         pygame.display.flip()
-
-        frame += 1
-        if frame == 4:
-            frame = 0
 
 if __name__ == "__main__":
     Main()
