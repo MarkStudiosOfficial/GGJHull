@@ -54,8 +54,8 @@ class App():
                         self.Game( levelFile )
                     else:
                         #pygame.mixer.Sound.play(self.death)
-                        #pygame.quit()
-                        #sys.exit()
+                        pygame.quit()
+                        sys.exit()
                 else:
                     return
 
