@@ -53,4 +53,7 @@ def Main():
         pygame.display.flip()
 
 if __name__ == "__main__":
-    Main()
+    fileList = os.listdir( "lvl/" )
+    print fileList
+
+#    Main()
