@@ -18,7 +18,7 @@ def Main():
     img1 = Image( "stickman.bmp", (300,300), magicPink )
     she1 = SpriteSheet( "spritesheet 3.bmp" )
     bac1 = Box( blue, (300,300),(60,60) )
-    frame = 0
+    frame = she1.Next()
 
     while True:
         for event in pygame.event.get():
@@ -30,16 +30,13 @@ def Main():
                     pygame.quit()
                     sys.exit()
                 if event.key == pygame.K_f:
-                    print frame
-                    frame += 1
-                    if frame == 4:
-                        frame = 0
+                    frame = she1.Next()
 
         clock.tick( 60 )
         screen.fill( orange )
         screen.blit( box1.image, box1.rect )
         screen.blit( img1.image, img1.rect )
-        screen.blit( she1.Image(frame), (100,400) )
+        screen.blit( frame, (100,400) )
         screen.blit( she1.Image(1), (100,200) )
         screen.blit( she1.Image(2), (100,242) )
         screen.blit( she1.Image(3), (100,274) )
