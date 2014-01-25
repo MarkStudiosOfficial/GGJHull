@@ -17,6 +17,9 @@ class App():
 
         self.lives = 3
 
+        #Death
+        self.death = pygame.mixer.Sound("sound/Death.wav")
+
         # Clock for FPS limit
         self.clock = pygame.time.Clock()
 
@@ -50,6 +53,7 @@ class App():
                         self.lives -= 1
                         self.Game( levelFile )
                     else:
+                        pygame.mixer.Sound.play(self.death)
                         pygame.quit()
                         sys.exit()
                 else:
