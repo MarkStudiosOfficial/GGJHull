@@ -1,17 +1,24 @@
 import pygame
+
 from colour import *
 
-# Box class, image-less sprite
-class Box( pygame.sprite.Sprite ):
-    def __init__( self, colour, pos, size=(32,32) ):
+class Level( pygame.sprite.Sprite ):
+    def __init__( self, filename, pos=(0,0), colKey=magicPink ):
         # Subclass sprite
         pygame.sprite.Sprite.__init__( self )
 
-        # Create box
-        self.image = pygame.Surface( size )
-        self.image.fill( colour )
+        # Load image
+        try:
+            self.image = pygame.image.load( filename ).convert()
+        except pygame.error, message:
+            print "Error: Cannot load image: %s" % (filename)
+            raise SystemExit
 
-        # Move to position
+        # Colour key image, create transparent areas
+        if colKey != None:
+            self.image.set_colorkey( colKey, pygame.RLEACCEL )
+
+        # Get bounding box
         self.rect = self.image.get_rect()
         self.rect.topleft = pos
 
@@ -19,23 +26,23 @@ class Box( pygame.sprite.Sprite ):
         self.xVel = 0
         self.yVel = 0
 
-    # Displace box by delta
+    # Displace by delta
     def Move( self, delta ):
         self.rect = self.rect.move( delta[0], delta[1] )
 
-    # Render to dest
+    # Render to dest at pos
     def Render( self, dest ):
         dest.blit( self.image, self.rect )
 
     # Update state
     def Update( self, kState ):
         try:
-            if kState[pygame.K_RIGHT]:
+            if kState[pygame.K_a]:
                 self.xVel = 5
         except KeyError:
             pass
         try:
-            if kState[pygame.K_LEFT]:
+            if kState[pygame.K_d]:
                 self.xVel = -5
         except KeyError:
             pass

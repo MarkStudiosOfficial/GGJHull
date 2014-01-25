@@ -2,6 +2,8 @@ import os, sys
 import pygame
 
 from box import *
+from image import *
+from level import *
 from colour import *
 
 def Main():
@@ -16,6 +18,7 @@ def Main():
     clock = pygame.time.Clock()
 
     box1 = Box( white, screen.get_rect().center )
+    lvl = Level( "lvl/01.bmp" )
     kState = {}
 
     # Main loop
@@ -31,15 +34,17 @@ def Main():
                 kState[event.key] = False
 
         box1.Update( kState )
+        lvl.Update( kState )
 
 
         # Limit FPS
         clock.tick( 60 )
 
         # Clear screen
-        screen.fill( orange )
+        screen.fill( black )
 
         # Render items
+        lvl.Render( screen )
         box1.Render( screen )
 
         # Display changes
