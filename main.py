@@ -2,6 +2,7 @@ import os, sys
 import pygame
 
 from box import *
+from image import *
 from color import *
 
 def Main():
@@ -13,6 +14,7 @@ def Main():
     clock = pygame.time.Clock()
 
     box1 = Box( white, (20,20) )
+    img1 = Image( "stickman.bmp", (300,300) )
 
     while True:
         for event in pygame.event.get():
@@ -23,6 +25,7 @@ def Main():
         clock.tick( 60 )
         screen.fill( black )
         screen.blit( box1.image, box1.rect )
+        screen.blit( img1.image, img1.rect )
         pygame.display.flip()
 
 if __name__ == "__main__":
