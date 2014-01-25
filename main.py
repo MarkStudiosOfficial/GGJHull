@@ -15,7 +15,7 @@ def Main():
     clock = pygame.time.Clock()
 
     box1 = Box( blue, (20,20) )
-    img1 = Image( "stickman.bmp", (300,300), magic_pink )
+    img1 = Image( "stickman.bmp", (300,300), magicPink )
     she1 = SpriteSheet( "stickman.bmp" )
     bac1 = Box( blue, (300,300),(60,60) )
     frame = 0
@@ -25,6 +25,12 @@ def Main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    pygame.quit()
+                    sys.exit()
+                if event.key == pygame.K_b:
+                    box1.Move( 10, 0 )
 
         clock.tick( 60 )
         screen.fill( orange )

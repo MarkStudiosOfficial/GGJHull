@@ -11,3 +11,5 @@ class Box( pygame.sprite.Sprite ):
 
         self.rect = self.image.get_rect()
         self.rect.topleft = pos
+    def Move( self, deltaX, deltaY ):
+        self.rect = self.rect.move( deltaX, deltaY )
