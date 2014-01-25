@@ -63,4 +63,4 @@ class Box( pygame.sprite.Sprite ):
             self.yVel = 0
             area = self.mask.overlap_mask( lvlMask, (offsetX, offsetY) )
             rect = area.get_bounding_rects()[0]
-            self.Move( (0,-rect.y) )
+            self.Move( (0,rect.y-32) )
