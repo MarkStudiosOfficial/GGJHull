@@ -9,6 +9,8 @@ def Main():
     size = width, height = 640, 480
     screen = pygame.display.set_mode( size )
 
+    clock = pygame.time.Clock()
+
     box1 = Box( (255,255,255), (20,20) )
 
     while True:
@@ -17,6 +19,7 @@ def Main():
                 pygame.quit()
                 sys.exit()
 
+        clock.tick( 60 )
         screen.fill( (0,0,0) )
         screen.blit( box1.image, box1.rect )
         pygame.display.flip()
