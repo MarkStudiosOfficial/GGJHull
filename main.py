@@ -14,6 +14,7 @@ class App():
         # Create window
         self.size = width, height = 640, 480
         self.screen = pygame.display.set_mode( self.size )
+        pygame.display.set_caption("Blue isn't | GGJ 2014 | The Stuck Pixels")
 
         self.lives = 3
 
