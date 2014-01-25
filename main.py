@@ -18,8 +18,6 @@ def Main():
     clock = pygame.time.Clock()
 
     box1 = Box( blue, screen.get_rect().center )
-    she1 = SpriteSheet( "spritesheet 3.bmp" )
-    #frame = she1.Next()
     lvl = Level( "lvl/01.bmp" )
     kState = {}
 
@@ -37,7 +35,6 @@ def Main():
             if event.type == pygame.KEYUP:
                 kState[event.key] = False
 
-        #box1.Update( kState, lvl.image )
         box1.Update( kState, lvl )
         lvl.Update( kState )
 
@@ -54,12 +51,6 @@ def Main():
 
         # Display changes
         pygame.display.flip()
-
-        #Old Sprite Sheet Blits
-        #screen.blit( she1.Image(1), (100,200))
-        #screen.blit( she1.Image(2), (100,242))
-        #screen.blit( she1.Image(3), (100,274))
-        #screen.blit( she1.Image(4), (100,316))
 
 if __name__ == "__main__":
     Main()
