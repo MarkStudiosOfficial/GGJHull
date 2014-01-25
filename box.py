@@ -18,13 +18,16 @@ class Box( pygame.sprite.Sprite ):
 
         # Clipping mask
         self.mask = pygame.mask.from_surface( self.image )
-        print type(self.mask)
-        print self.mask.get_bounding_rects()
 
 
         # Zero velocity
         self.xVel = 0
         self.yVel = 0
+
+        self.canJump = False
+        self.jumpStr = 10
+        self.fric = 0.3
+        self.grav = 0.5
 
     # Displace box by delta
     def Move( self, delta ):
@@ -46,21 +49,27 @@ class Box( pygame.sprite.Sprite ):
                 self.xVel = -5
         except KeyError:
             pass
+        try:
+            if kState[pygame.K_SPACE] and self.canJump:
+                self.yVel -= self.jumpStr
+                self.canJump = False
+        except KeyError:
+            pass
 
-        fric = 0.3
+        fric = self.fric
         self.xVel = self.xVel-fric if self.xVel > 0 else self.xVel+fric
         self.Move( (self.xVel,0) )
 
-        grav = 0.2
+        grav = self.grav
         self.yVel += grav
         self.Move( (0,self.yVel) )
 
         lvlMask = pygame.mask.from_surface( lvl.image )
         offsetX = lvl.rect.x - self.rect.x
         offsetY = lvl.rect.y - self.rect.y
-        print offsetX, offsetY
         if self.mask.overlap( lvlMask, (offsetX, offsetY) ):
             self.yVel = 0
             area = self.mask.overlap_mask( lvlMask, (offsetX, offsetY) )
             rect = area.get_bounding_rects()[0]
             self.Move( (0,rect.y-32) )
+            self.canJump = True
