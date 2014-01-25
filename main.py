@@ -15,6 +15,8 @@ class App():
         self.size = width, height = 640, 480
         self.screen = pygame.display.set_mode( self.size )
 
+        self.lives = 3
+
         # Clock for FPS limit
         self.clock = pygame.time.Clock()
 
@@ -44,8 +46,12 @@ class App():
                 self.lvl.Update( self.kState )
             except KeyError:
                 if self.box1.isDead:
-                    pygame.quit()
-                    sys.exit()
+                    if self.lives > 0:
+                        self.lives -= 1
+                        self.Game( levelFile )
+                    else:
+                        pygame.quit()
+                        sys.exit()
                 else:
                     return
 
