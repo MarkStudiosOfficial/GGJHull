@@ -2,6 +2,7 @@ import os, sys
 import pygame
 
 from box import *
+from color import *
 
 def Main():
     pygame.init()
@@ -11,7 +12,7 @@ def Main():
 
     clock = pygame.time.Clock()
 
-    box1 = Box( (255,255,255), (20,20) )
+    box1 = Box( white, (20,20) )
 
     while True:
         for event in pygame.event.get():
@@ -20,7 +21,7 @@ def Main():
                 sys.exit()
 
         clock.tick( 60 )
-        screen.fill( (0,0,0) )
+        screen.fill( black )
         screen.blit( box1.image, box1.rect )
         pygame.display.flip()
 
