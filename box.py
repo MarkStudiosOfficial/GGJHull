@@ -53,9 +53,14 @@ class Box( pygame.sprite.Sprite ):
         except KeyError:
             pass
         try:
-            if kState[pygame.K_SPACE] and self.canJump:
+            if kState[pygame.K_UP] and self.canJump:
                 self.yVel -= self.jumpStr
                 self.canJump = False
+        except KeyError:
+            pass
+        try:
+            if kState[pygame.K_HASH]:
+                self.Move( (0,-1000) )
         except KeyError:
             pass
 
