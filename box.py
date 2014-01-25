@@ -12,6 +12,10 @@ class Box( pygame.sprite.Sprite ):
         self.image.fill( colour )
         self.image.set_colorkey( magicPink, pygame.RLEACCEL )
 
+        # Initialize PyGame Audio and Allocation
+        pygame.mixer.init(frequency=20050, size=-16, channels=2, buffer=2048)
+        self.jump = pygame.mixer.Sound("sound/Jump.wav")
+
         # Move to position
         self.rect = self.image.get_rect()
         self.rect.topleft = pos
@@ -54,12 +58,14 @@ class Box( pygame.sprite.Sprite ):
             pass
         try:
             if kState[pygame.K_UP] and self.canJump:
+                pygame.mixer.Sound.play(self.jump)
                 self.yVel -= self.jumpStr
                 self.canJump = False
         except KeyError:
             pass
         try:
             if kState[pygame.K_SPACE] and self.canJump:
+                pygame.mixer.Sound.play(self.jump)
                 self.yVel -= self.jumpStr
                 self.canJump = False
         except KeyError:
