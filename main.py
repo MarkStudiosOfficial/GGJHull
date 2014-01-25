@@ -6,54 +6,69 @@ from image import *
 from level import *
 from colour import *
 
-def Main():
-    # Initialise PyGame
-    pygame.init()
+class App():
+    def __init__( self ):
+        # Initialise PyGame
+        pygame.init()
 
-    # Create window
-    size = width, height = 640, 480
-    screen = pygame.display.set_mode( size )
+        # Create window
+        self.size = width, height = 640, 480
+        self.screen = pygame.display.set_mode( self.size )
 
-    # Clock for FPS limit
-    clock = pygame.time.Clock()
+        # Clock for FPS limit
+        self.clock = pygame.time.Clock()
 
-    box1 = Box( blue, screen.get_rect().center )
-    lvl = Level( "lvl/01.bmp" )
-    kState = {}
+        #Sprite
+        self.box1 = Box( blue, self.screen.get_rect().center )
+        self.kState = {}
 
-    #Sprite
+    def Game( self, levelFile ):
+        self.box1 = Box( blue, self.screen.get_rect().center )
+        self.lvl = Level( "lvl/%s" % (levelFile) )
 
-    # Main loop
-    while True:
-        # Event loop
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
-                kState[event.key] = True
-            if event.type == pygame.KEYUP:
-                kState[event.key] = False
+        # Main loop
+        while True:
+            # Event loop
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    self.kState[event.key] = True
+                if event.type == pygame.KEYUP:
+                    self.kState[event.key] = False
 
-        box1.Update( kState, lvl )
-        lvl.Update( kState )
+            # Update physics & handle input
+            try:
+                self.box1.Update( self.kState, self.lvl )
+                self.lvl.Update( self.kState )
+            except KeyError:
+                if self.box1.isDead:
+                    pygame.quit()
+                    sys.exit()
+                else:
+                    return
 
+            # Limit FPS
+            self.clock.tick( 60 )
 
-        # Limit FPS
-        clock.tick( 60 )
+            # Clear screen
+            self.screen.fill( black )
 
-        # Clear screen
-        screen.fill( black )
+            # Render items
+            self.lvl.Render( self.screen )
+            self.box1.Render( self.screen )
 
-        # Render items
-        lvl.Render( screen )
-        box1.Render( screen )
-
-        # Display changes
-        pygame.display.flip()
+            # Display changes
+            pygame.display.flip()
 
 if __name__ == "__main__":
     fileList = os.listdir( "lvl/" )
-    print fileList
+    app = App()
+    for i in xrange( 1, len( fileList ) ):
+        if len( str( i ) ) == 1:
+            app.Game( "0%d.bmp" % (i) )
+        else:
+            app.Game( "%d.bmp" % (i) )
 
 #    Main()
