@@ -10,10 +10,17 @@ class Box( pygame.sprite.Sprite ):
         # Create box
         self.image = pygame.Surface( size )
         self.image.fill( colour )
+        self.image.set_colorkey( magicPink, pygame.RLEACCEL )
 
         # Move to position
         self.rect = self.image.get_rect()
         self.rect.topleft = pos
+
+        # Clipping mask
+        self.mask = pygame.mask.from_surface( self.image )
+        print type(self.mask)
+        print self.mask.get_bounding_rects()
+
 
         # Zero velocity
         self.xVel = 0
@@ -28,7 +35,7 @@ class Box( pygame.sprite.Sprite ):
         dest.blit( self.image, self.rect )
 
     # Update state
-    def Update( self, kState ):
+    def Update( self, kState, lvl ):
         try:
             if kState[pygame.K_RIGHT]:
                 self.xVel = 5
@@ -42,4 +49,18 @@ class Box( pygame.sprite.Sprite ):
 
         fric = 0.3
         self.xVel = self.xVel-fric if self.xVel > 0 else self.xVel+fric
-        self.Move( (self.xVel,self.yVel) )
+        self.Move( (self.xVel,0) )
+
+        grav = 0.2
+        self.yVel += grav
+        self.Move( (0,self.yVel) )
+
+        lvlMask = pygame.mask.from_surface( lvl.image )
+        offsetX = lvl.rect.x - self.rect.x
+        offsetY = lvl.rect.y - self.rect.y
+        print offsetX, offsetY
+        if self.mask.overlap( lvlMask, (offsetX, offsetY) ):
+            self.yVel = 0
+            area = self.mask.overlap_mask( lvlMask, (offsetX, offsetY) )
+            rect = area.get_bounding_rects()[0]
+            self.Move( (0,-rect.y) )

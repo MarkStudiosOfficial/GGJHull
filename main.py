@@ -17,7 +17,7 @@ def Main():
     # Clock for FPS limit
     clock = pygame.time.Clock()
 
-    box1 = Box( white, screen.get_rect().center )
+    box1 = Box( blue, screen.get_rect().center )
     lvl = Level( "lvl/01.bmp" )
     kState = {}
 
@@ -33,7 +33,8 @@ def Main():
             if event.type == pygame.KEYUP:
                 kState[event.key] = False
 
-        box1.Update( kState )
+        #box1.Update( kState, lvl.image )
+        box1.Update( kState, lvl )
         lvl.Update( kState )
 
 
