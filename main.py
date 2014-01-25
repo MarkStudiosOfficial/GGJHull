@@ -16,7 +16,7 @@ class App():
         self.screen = pygame.display.set_mode( self.size )
         pygame.display.set_caption("Blue isn't | GGJ 2014 | The Stuck Pixels")
 
-        self.lives = 4
+        self.lives = 3
 
         #Death
         self.death = pygame.mixer.Sound("sound/Death.wav")
