@@ -3,6 +3,7 @@ import pygame
 
 from box import *
 from image import *
+from spritesheet import *
 from color import *
 
 def Main():
@@ -13,8 +14,11 @@ def Main():
 
     clock = pygame.time.Clock()
 
-    box1 = Box( white, (20,20) )
-    img1 = Image( "stickman.bmp", (300,300) )
+    box1 = Box( blue, (20,20) )
+    img1 = Image( "stickman.bmp", (300,300), magic_pink )
+    she1 = SpriteSheet( "stickman.bmp" )
+    bac1 = Box( blue, (300,300),(60,60) )
+    frame = 0
 
     while True:
         for event in pygame.event.get():
@@ -23,10 +27,15 @@ def Main():
                 sys.exit()
 
         clock.tick( 60 )
-        screen.fill( black )
+        screen.fill( orange )
         screen.blit( box1.image, box1.rect )
         screen.blit( img1.image, img1.rect )
+        screen.blit( she1.Image(frame), (400,400) )
         pygame.display.flip()
+
+        frame += 1
+        if frame == 4:
+            frame = 0
 
 if __name__ == "__main__":
     Main()
