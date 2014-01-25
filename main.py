@@ -1,11 +1,15 @@
 import os, sys
 import pygame
 
+from box import *
+
 def Main():
     pygame.init()
 
     size = width, height = 640, 480
     screen = pygame.display.set_mode( size )
+
+    box1 = Box( (255,255,255), (20,20) )
 
     while True:
         for event in pygame.event.get():
@@ -14,6 +18,7 @@ def Main():
                 sys.exit()
 
         screen.fill( (0,0,0) )
+        screen.blit( box1.image, box1.rect )
         pygame.display.flip()
 
 if __name__ == "__main__":
