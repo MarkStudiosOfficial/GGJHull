@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from colour import *
 
 # Box class, image-less sprite
@@ -41,12 +41,14 @@ class Box( pygame.sprite.Sprite ):
     def Update( self, kState, lvl ):
         try:
             if kState[pygame.K_RIGHT]:
-                self.xVel = 5
+                #self.xVel = 5
+                pass
         except KeyError:
             pass
         try:
             if kState[pygame.K_LEFT]:
-                self.xVel = -5
+                #self.xVel = -5
+                pass
         except KeyError:
             pass
         try:
@@ -70,6 +72,11 @@ class Box( pygame.sprite.Sprite ):
         if self.mask.overlap( lvlMask, (offsetX, offsetY) ):
             self.yVel = 0
             area = self.mask.overlap_mask( lvlMask, (offsetX, offsetY) )
-            rect = area.get_bounding_rects()[0]
-            self.Move( (0,rect.y-32) )
-            self.canJump = True
+            rect = area.get_bounding_rects()
+            if len(rect) > 0:
+                rect = rect[0]
+                self.Move( (0,rect.y-32) )
+                self.canJump = True
+        if self.rect.y > 480:
+            pygame.quit()
+            sys.exit()

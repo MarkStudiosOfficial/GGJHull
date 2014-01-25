@@ -37,12 +37,12 @@ class Level( pygame.sprite.Sprite ):
     # Update state
     def Update( self, kState ):
         try:
-            if kState[pygame.K_a]:
+            if kState[pygame.K_LEFT]:
                 self.xVel = 5
         except KeyError:
             pass
         try:
-            if kState[pygame.K_d]:
+            if kState[pygame.K_RIGHT]:
                 self.xVel = -5
         except KeyError:
             pass
