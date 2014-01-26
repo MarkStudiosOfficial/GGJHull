@@ -34,6 +34,7 @@ class App():
 
         # Final screen
         self.finalImage = Image( "img/final.bmp", (0,0) )
+        self.gameOverImage = Image( "img/gameOver.bmp", (0,0) )
 
         # Dictionary for key states
         self.kState = { pygame.K_UP:False }
@@ -64,9 +65,9 @@ class App():
                     if self.lives > 1:
                         self.lives -= 1
                         pygame.mixer.Sound.play( self.deathSound )
-                        self.Game( levelFile )
+                        self.Game( levelNum )
                     else:
-                        self.Death()
+                        self.GameOver()
                         pygame.quit()
                         sys.exit()
                 else:
@@ -87,9 +88,6 @@ class App():
 
             # Display changes
             pygame.display.flip()
-    def Death( self ):
-        pygame.mixer.Sound.play( self.deathSound )
-        pygame.time.wait( 2500 )
     def Final( self ):
         while True:
             for event in pygame.event.get():
@@ -98,6 +96,16 @@ class App():
                     sys.exit()
             self.screen.fill( black )
             self.finalImage.Render( self.screen )
+            pygame.display.flip()
+    def GameOver( self ):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            pygame.mixer.Sound.play( self.deathSound )
+            self.screen.fill( black )
+            self.gameOverImage.Render( self.screen )
             pygame.display.flip()
 
 
