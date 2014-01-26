@@ -61,7 +61,7 @@ class App():
                 self.lifeCounter.Update( self.lives )
             except KeyError:
                 if self.box1.isDead:
-                    if self.lives > 0:
+                    if self.lives > 1:
                         self.lives -= 1
                         pygame.mixer.Sound.play( self.deathSound )
                         self.Game( levelFile )
