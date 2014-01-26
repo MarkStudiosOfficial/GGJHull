@@ -4,6 +4,7 @@ import pygame
 from box import *
 from image import *
 from level import *
+from lifeCounter import *
 from colour import *
 
 class App():
@@ -17,7 +18,9 @@ class App():
         self.screen = pygame.display.set_mode( self.size )
         pygame.display.set_caption("Blue isn't | GGJ 2014 | The Stuck Pixels")
 
+        # Life counter
         self.lives = 3
+        self.lifeCounter = LifeCounter()
 
         #Death
         self.deathSound = pygame.mixer.Sound("sound/Death.wav")
@@ -55,6 +58,7 @@ class App():
             try:
                 self.box1.Update( self.kState, self.lvl )
                 self.lvl.Update( self.kState )
+                self.lifeCounter.Update( self.lives )
             except KeyError:
                 if self.box1.isDead:
                     if self.lives > 0:
@@ -79,6 +83,7 @@ class App():
             # Render items
             self.lvl.Render( self.screen )
             self.box1.Render( self.screen )
+            self.lifeCounter.Render( self.screen )
 
             # Display changes
             pygame.display.flip()

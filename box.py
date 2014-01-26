@@ -63,7 +63,7 @@ class Box( pygame.sprite.Sprite ):
         except KeyError:
             pass
         try:
-            if kState[pygame.K_HASH]:
+            if kState[pygame.K_p]:
                 self.Move( (0,-1000) )
         except KeyError:
             pass
