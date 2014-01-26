@@ -10,6 +10,7 @@ class App():
     def __init__( self ):
         # Initialise PyGame
         pygame.init()
+        pygame.mixer.init( frequency=20050, size=16, channels=2, buffer=2048 )
 
         # Create window
         self.size = width, height = 640, 480
@@ -19,15 +20,21 @@ class App():
         self.lives = 3
 
         #Death
-        self.death = pygame.mixer.Sound("sound/Death.wav")
+        self.deathSound = pygame.mixer.Sound("sound/Death.wav")
+        self.finishSound = pygame.mixer.Sound("sound/Finish.wav")
 
         # Clock for FPS limit
         self.clock = pygame.time.Clock()
 
         #Sprite
         self.box1 = Box( blue, self.screen.get_rect().center )
-        self.kState = {}
 
+        # Dictionary for key states
+        self.kState = { pygame.K_UP:False }
+
+    def Death( self ):
+        pygame.mixer.Sound.play( self.deathSound )
+        pygame.time.wait( 2500 )
     def Game( self, levelFile ):
         self.box1 = Box( blue, self.screen.get_rect().center )
         self.lvl = Level( "lvl/%s" % (levelFile) )
@@ -52,12 +59,15 @@ class App():
                 if self.box1.isDead:
                     if self.lives > 0:
                         self.lives -= 1
+                        pygame.mixer.Sound.play( self.deathSound )
                         self.Game( levelFile )
                     else:
-                        #pygame.mixer.Sound.play(self.death)
+                        self.Death()
                         pygame.quit()
                         sys.exit()
                 else:
+                    pygame.mixer.Sound.play( self.finishSound )
+                    pygame.time.wait( 500 )
                     return
 
             # Limit FPS
