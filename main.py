@@ -32,12 +32,12 @@ class App():
         #Sprite
         self.box1 = Box( blue, self.screen.get_rect().center )
 
+        # Final screen
+        self.finalImage = Image( "img/final.bmp", (0,0) )
+
         # Dictionary for key states
         self.kState = { pygame.K_UP:False }
 
-    def Death( self ):
-        pygame.mixer.Sound.play( self.deathSound )
-        pygame.time.wait( 2500 )
     def Game( self, levelFile ):
         self.box1 = Box( blue, self.screen.get_rect().center )
         self.lvl = Level( "lvl/%s" % (levelFile) )
@@ -87,6 +87,19 @@ class App():
 
             # Display changes
             pygame.display.flip()
+    def Death( self ):
+        pygame.mixer.Sound.play( self.deathSound )
+        pygame.time.wait( 2500 )
+    def Final( self ):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            self.screen.fill( black )
+            self.finalImage.Render( self.screen )
+            pygame.display.flip()
+
 
 if __name__ == "__main__":
     fileList = os.listdir( "lvl/" )
@@ -96,5 +109,6 @@ if __name__ == "__main__":
             app.Game( "0%d.bmp" % (i) )
         else:
             app.Game( "%d.bmp" % (i) )
+    app.Final()
 
 #    Main()
