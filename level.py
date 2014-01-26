@@ -3,7 +3,7 @@ import pygame
 from colour import *
 
 class Level( pygame.sprite.Sprite ):
-    def __init__( self, filename, pos=(0,0), colKey=magicPink ):
+    def __init__( self, filename, lNum, pos=(0,0), colKey=magicPink ):
         # Subclass sprite
         pygame.sprite.Sprite.__init__( self )
 
@@ -25,6 +25,8 @@ class Level( pygame.sprite.Sprite ):
         # Zero velocity
         self.xVel = 0
         self.yVel = 0
+
+        self.num = int(lNum)
 
     # Displace by delta
     def Move( self, delta ):

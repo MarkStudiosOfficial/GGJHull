@@ -62,11 +62,6 @@ class Box( pygame.sprite.Sprite ):
                 self.canJump = False
         except KeyError:
             pass
-        try:
-            if kState[pygame.K_p]:
-                self.Move( (0,-1000) )
-        except KeyError:
-            pass
 
         fric = self.fric
         # Bring xVel friction amount closer to zero
@@ -105,4 +100,8 @@ class Box( pygame.sprite.Sprite ):
         if self.rect.y < -128: # Winner
             self.isDead = False
             raise KeyError
+        if lvl.num == 20:
+            if lvl.rect.x < -1150:
+                self.isDead = False
+                raise KeyError
         return

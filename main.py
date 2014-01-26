@@ -16,7 +16,7 @@ class App():
         # Create window
         self.size = width, height = 640, 480
         self.screen = pygame.display.set_mode( self.size )
-        pygame.display.set_caption("Blue isn't | GGJ 2014 | The Stuck Pixels")
+        pygame.display.set_caption("Blue | GGJ 2014 | The Stuck Pixels")
 
         # Life counter
         self.lives = 3
@@ -38,9 +38,9 @@ class App():
         # Dictionary for key states
         self.kState = { pygame.K_UP:False }
 
-    def Game( self, levelFile ):
+    def Game( self, levelNum ):
         self.box1 = Box( blue, self.screen.get_rect().center )
-        self.lvl = Level( "lvl/%s" % (levelFile) )
+        self.lvl = Level( "lvl/%s.bmp" % (levelNum), levelNum )
 
         # Main loop
         while True:
@@ -106,9 +106,9 @@ if __name__ == "__main__":
     app = App()
     for i in xrange( 1, len( fileList ) ):
         if len( str( i ) ) == 1:
-            app.Game( "0%d.bmp" % (i) )
+            app.Game( "0%d" % (i) )
         else:
-            app.Game( "%d.bmp" % (i) )
+            app.Game( "%d" % (i) )
     app.Final()
 
 #    Main()
